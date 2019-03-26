@@ -7,6 +7,7 @@ class Solution
 {
 
 public:
+    //Question 1
     void ReversingMemory(char collection[])
     {
         char temp = ' ';
@@ -18,10 +19,10 @@ public:
             collection[counter] = temp;
             counter++;
         }
-
         cout<<counter;
     };
 
+    //Question 2
     int countSubstring(string originalString, string subString)
     {
         if (subString.length() == 0)
@@ -30,33 +31,33 @@ public:
         for (int offset = originalString.find(subString); offset != originalString.npos;
                 offset = originalString.find(subString, offset + subString.length()))
         {
-            ++count;
+            count++;
         }
-        cout<< count;
+        return count;
     }
 
+    //Question 3
     int countSubstringR(string originalString, string subString)
     {
-
         int sizeOfOriginalString = originalString.length();
         int sizeOfSubstring = subString.length();
 
-        if(sizeOfOriginalString < sizeOfSubstring)
-        {
+        if(sizeOfOriginalString < sizeOfSubstring || sizeOfSubstring == 0)
             return 0;
-        }
 
-        else if (originalString.substr(0,sizeOfSubstring) == subString)
-        {
-
-            return countSubstringR(originalString.substr(sizeOfSubstring-1), subString) + 1;
+        else if (originalString.substr(0,sizeOfSubstring) == subString){
+            if(sizeOfSubstring == 1)
+                return countSubstringR(originalString.substr(sizeOfSubstring), subString) + 1;
+            else
+                return countSubstringR(originalString.substr(sizeOfSubstring-1), subString) + 1;
         }
 
         else{
-
-            return countSubstringR(originalString.substr(sizeOfSubstring-1), subString);
+             if(sizeOfSubstring == 1)
+                return countSubstringR(originalString.substr(sizeOfSubstring), subString);
+            else
+                return countSubstringR(originalString.substr(sizeOfSubstring-1), subString);
         }
-
 
     }
 };
@@ -70,7 +71,7 @@ int main()
     //char collection[] = { 'H', 'e', 'l', 'l', 'o',' ', 'W', 'O','R','L','D' };
 
     //mySolution.ReversingMemory(collection);
-    //mySolution.countSubstring("Appendix","p");
+    cout<<mySolution.countSubstringR("pppendix","p");
 
 
     return 0;
